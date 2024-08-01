@@ -13,6 +13,6 @@ resource "aws_s3_bucket" "example_bucket2" {
 }
 
 resource "aws_s3_bucket" "example_bucket3" {
-  count  = var.check_duplicate ? 1 : 0
+  #   count  = var.check_duplicate ? 1 : 0
   bucket = "example-bucket-cloudminion-github-second"
 }
