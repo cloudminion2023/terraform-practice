@@ -2,10 +2,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "example_bucket" {
-  count  = var.check_duplicate ? 1 : 0
-  bucket = "example-bucket-cloudminion-github"
-}
+# resource "aws_s3_bucket" "example_bucket" {
+#   count  = var.check_duplicate ? 1 : 0
+#   bucket = "example-bucket-cloudminion-github"
+# }
 
 resource "aws_security_group" "allow_rdp" {
   name        = "allow_rdp"
@@ -21,13 +21,11 @@ resource "aws_security_group" "allow_rdp" {
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-07d9456e59793a7d5" # Replace with your desired Windows AMI
-  instance_type = "t2.micro"
-  key_name      = "my-key-pair" # Replace with your key pair name
-
-  security_groups = [aws_security_group.allow_rdp.id]
+  ami                    = "ami-07d9456e59793a7d5" # Replace with your desired Windows AMI
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.allow_rdp.id]
 
   tags = {
-    Name = "My Windows Instance"
+    Name = "GitHub EC2 Instance"
   }
 }
